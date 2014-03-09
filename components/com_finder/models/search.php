@@ -1126,6 +1126,7 @@ class FinderModelSearch extends JModelList
 		 */
 		$order = $input->getWord('filter_order', $params->get('sort_order', 'relevance'));
 		$order = JString::strtolower($order);
+
 		switch ($order)
 		{
 			case 'date':
@@ -1140,7 +1141,7 @@ class FinderModelSearch extends JModelList
 				$this->setState('list.ordering', 'm.weight');
 				break;
 
-			// custom field that is indexed and might be required for ordering
+			// Custom field that is indexed and might be required for ordering
 			case 'title':
 				$this->setState('list.ordering', 'l.title');
 				break;
@@ -1157,6 +1158,7 @@ class FinderModelSearch extends JModelList
 		 */
 		$dirn = $input->getWord('filter_order_Dir', $params->get('sort_direction', 'desc'));
 		$dirn = JString::strtolower($dirn);
+
 		switch ($dirn)
 		{
 			case 'asc':
