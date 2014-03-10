@@ -1118,6 +1118,7 @@ class FinderModelSearch extends JModelList
 		$this->setState('list.start', $input->get('limitstart', 0, 'uint'));
 		$this->setState('list.limit', $input->get('limit', $app->get('list_limit', 20), 'uint'));
 
+<<<<<<< HEAD
 		/* Load the sort ordering.
 		 * Currently this is 'hard' coded via menu item parameter but may not satisfy a users need.
 		 * More flexibility was way more user friendly. So we allow the user to pass a custom value
@@ -1127,6 +1128,10 @@ class FinderModelSearch extends JModelList
 		$order = $input->getWord('filter_order', $params->get('sort_order', 'relevance'));
 		$order = JString::strtolower($order);
 
+=======
+		// Load the sort ordering.
+		$order = $params->get('sort_order', 'relevance');
+>>>>>>> replaced previous solution by improved one
 		switch ($order)
 		{
 			case 'date':
@@ -1141,16 +1146,20 @@ class FinderModelSearch extends JModelList
 				$this->setState('list.ordering', 'm.weight');
 				break;
 
+<<<<<<< HEAD
 			// Custom field that is indexed and might be required for ordering
 			case 'title':
 				$this->setState('list.ordering', 'l.title');
 				break;
 
+=======
+>>>>>>> replaced previous solution by improved one
 			default:
 				$this->setState('list.ordering', 'l.link_id');
 				break;
 		}
 
+<<<<<<< HEAD
 		/* Load the sort direction.
 		 * Currently this is 'hard' coded via menu item parameter but may not satisfy a users need.
 		 * More flexibility was way more user friendly. So we allow to be inverted.
@@ -1159,6 +1168,10 @@ class FinderModelSearch extends JModelList
 		$dirn = $input->getWord('filter_order_Dir', $params->get('sort_direction', 'desc'));
 		$dirn = JString::strtolower($dirn);
 
+=======
+		// Load the sort direction.
+		$dirn = $params->get('sort_direction', 'desc');
+>>>>>>> replaced previous solution by improved one
 		switch ($dirn)
 		{
 			case 'asc':
@@ -1170,6 +1183,31 @@ class FinderModelSearch extends JModelList
 				$this->setState('list.direction', 'DESC');
 				break;
 		}
+		
+		
+		// Allow customise the sort ordering. (currently this is 'hard' defined via menu item parameter)
+		$ordering = $app->getUserStateFromRequest("{$this->context}.ordercol", 'filter_order', $ordering);
+		$ordering = $filter->clean($ordering, 'CMD');
+		$ordering = strtolower("l.{$ordering}");
+		// If this information is missing in the user's session, add it.
+		if (!JArrayHelper::getValue($this->filter_fields, $ordering, null))
+		{
+			$app->setUserState("{$this->context}.ordercol", $ordering);
+		}
+		// Replace the model's state.
+		$this->setState('list.ordering', $ordering);
+		
+		// Allow customise the sort ordering direction. (currently this is 'hard' defined via menu item parameter)
+		$direction = $app->getUserStateFromRequest("{$this->context}.orderdir", 'filter_order_Dir', $direction);
+		$direction = $filter->clean($direction, 'WORD');
+		$direction = strtolower($direction);
+		// If this information is missing in the user's session, add it.
+		if (!JArrayHelper::getValue($this->filter_fields, $direction, null))
+		{
+			$app->setUserState("{$this->context}.orderdir", $direction);
+		}
+		// Replace the model's state.
+		$this->setState('list.direction', $direction);
 
 		// Set the match limit.
 		$this->setState('match.limit', 1000);
