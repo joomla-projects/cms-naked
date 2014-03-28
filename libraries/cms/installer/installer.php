@@ -1416,13 +1416,12 @@ class JInstaller extends JAdapter
 	 *
 	 * @param   SimpleXMLElement  $element  The XML node to process
 	 * @param   integer           $cid      Application ID of application to install to
-	 * @param   string            $media    Destination folder, by default  to media, but it's also used for layouts
 	 *
 	 * @return  boolean     True on success
 	 *
 	 * @since   3.1
 	 */
-	public function parseMedia(SimpleXMLElement $element, $cid = 0, $media = 'media')
+	public function parseMedia(SimpleXMLElement $element, $cid = 0)
 	{
 		if (!$element || !count($element->children()))
 		{
@@ -1436,7 +1435,7 @@ class JInstaller extends JAdapter
 		// Default 'media' Files are copied to the JPATH_BASE/media folder
 
 		$folder = ((string) $element->attributes()->destination) ? '/' . $element->attributes()->destination : null;
-		$destination = JPath::clean(JPATH_ROOT . '/' . $media . $folder);
+		$destination = JPath::clean(JPATH_ROOT . '/media' . $folder);
 
 		// Here we set the folder we are going to copy the files from.
 
