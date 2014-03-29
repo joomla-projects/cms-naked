@@ -387,6 +387,7 @@ class JInstallerAdapterComponent extends JAdapterInstance
 
 		// Parse optional tags
 		$this->parent->parseMedia($this->manifest->media);
+		$this->parent->parseMedia($this->manifest->layouts, 0, 'layouts');
 		$this->parent->parseLanguages($this->manifest->languages);
 		$this->parent->parseLanguages($this->manifest->administration->languages, 1);
 
@@ -800,6 +801,7 @@ class JInstallerAdapterComponent extends JAdapterInstance
 
 		// Parse optional tags
 		$this->parent->parseMedia($this->manifest->media);
+		$this->parent->parseMedia($this->manifest->layouts, 0, 'layouts');
 		$this->parent->parseLanguages($this->manifest->languages);
 		$this->parent->parseLanguages($this->manifest->administration->languages, 1);
 
@@ -1126,6 +1128,7 @@ class JInstallerAdapterComponent extends JAdapterInstance
 		// Let's remove those language files and media in the JROOT/images/ folder that are
 		// associated with the component we are uninstalling
 		$this->parent->removeFiles($this->manifest->media);
+		$this->parent->removeFiles($this->manifest->layouts);
 		$this->parent->removeFiles($this->manifest->languages);
 		$this->parent->removeFiles($this->manifest->administration->languages, 1);
 
