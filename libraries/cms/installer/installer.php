@@ -1415,14 +1415,45 @@ class JInstaller extends JAdapter
 	 * action.
 	 *
 	 * @param   SimpleXMLElement  $element  The XML node to process
-	 * @param   integer           $cid      Application ID of application to install to
+	 *
+	 * @return  boolean     True on success
+	 *
+	 * @since   3.3
+	 */
+	public function parseMedia(SimpleXMLElement $element)
+	{
+		$media = 'media';
+		$this->_copyFilesFolder($element, $media);
+	}
+
+	/**
+	 * Method to parse through a layouts element of the installation manifest and take appropriate
+	 * action.
+	 *
+	 * @param   SimpleXMLElement  $element  The XML node to process
+	 *
+	 * @return  boolean     True on success
+	 *
+	 * @since   3.3
+	 */
+	public function parseLayouts(SimpleXMLElement $element)
+	{
+		$media = 'layouts';
+		$this->_copyFilesFolder($element, $media);
+	}
+
+	/**
+	 * Method to parse through an element of the installation manifest and take appropriate
+	 * action.
+	 *
+	 * @param   SimpleXMLElement  $element  The XML node to process
 	 * @param   string            $media    Folder to copy the files E.g. media or layouts
 	 *
 	 * @return  boolean     True on success
 	 *
-	 * @since   3.1
+	 * @since   3.3
 	 */
-	public function parseMedia(SimpleXMLElement $element, $cid = 0, $media = 'media')
+	private function _copyFilesFolder(SimpleXMLElement $element, $media)
 	{
 		if (!$element || !count($element->children()))
 		{
