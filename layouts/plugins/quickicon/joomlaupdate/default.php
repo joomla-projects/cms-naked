@@ -15,7 +15,6 @@ extract($displayData);
  * Layout variables
  * ---------------------
  * 	$context         : (string) The context of the content being passed to the plugin
- * 	$page            : (int) The 'page' number
  */
 
 JHtml::_('jquery.framework');
