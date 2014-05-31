@@ -15,9 +15,6 @@ extract($displayData);
  * Layout variables
  * ---------------------
  * 	$context         : (string) The context of the content being passed to the plugin
- * 	$row             : (object) The article object
- * 	$params          : (JRegistry)  The article params
- * 	  - showVoteForm : (boolean) Do we have to show the vote form?
  * 	$page            : (int) The 'page' number
  */
 
