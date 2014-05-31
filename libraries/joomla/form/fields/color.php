@@ -250,15 +250,23 @@ class JFormFieldColor extends JFormField
 			$hint         = $hint ? ' placeholder="' . $hint . '"' : ' placeholder="#rrggbb"';
 			$autocomplete = !$this->autocomplete ? ' autocomplete="off"' : '';
 
-			// Including fallback code for HTML5 non supported browsers.
-			JHtml::_('jquery.framework');
-			JHtml::_('script', 'system/html5fallback.js', false, true);
+			$displayData = array(
+				'name' => $this->name,
+				'id' => $this->id,
+				'color' => $color,
+				'hint' => $hint,
+				'class' => $class,
+				'position' => $position,
+				'control' => $control,
+				'readonly' => $readonly,
+				'disabled' => $disabled,
+				'required' => $required,
+				'onchange' => $onchange,
+				'autocomplete' => $autocomplete,
+				'autofocus' => $autofocus
+			);
 
-			JHtml::_('behavior.colorpicker');
-
-			return '<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'
-				. htmlspecialchars($color, ENT_COMPAT, 'UTF-8') . '"' . $hint . $class . $position . $control
-				. $readonly . $disabled . $required . $onchange . $autocomplete . $autofocus . '/>';
+			return JLayoutHelper::render('libraries.joomla.form.fields.color', $displayData);
 		}
 	}
 }
