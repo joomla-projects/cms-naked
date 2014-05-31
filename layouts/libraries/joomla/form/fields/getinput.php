@@ -12,11 +12,11 @@ defined('_JEXEC') or die;
 
 //		
 
-
+extract($displayData);
 	
 if ($options)
 		{
-			$datalist = '<datalist id="' . $this->id . '_datalist">';
+			$datalist = '<datalist id="' . $id . '_datalist">';
 
 			foreach ($options as $option)
 			{
@@ -29,11 +29,11 @@ if ($options)
 			}
 
 			$datalist .= '</datalist>';
-			$list     = ' list="' . $this->id . '_datalist"';
+			$list     = ' list="' . $id . '_datalist"';
 		}
 
-		$html[] = '<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . $dirname . ' value="'
-			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly . $list
+		$html[] = '<input type="text" name="' . $name . '" id="' . $id . '"' . $dirname . ' value="'
+			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly . $list
 			. $hint . $onchange . $maxLength . $required . $autocomplete . $autofocus . $spellcheck . $inputmode . $pattern . ' />';
 		$html[] = $datalist;
 

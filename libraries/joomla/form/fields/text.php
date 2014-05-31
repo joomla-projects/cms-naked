@@ -198,7 +198,8 @@ class JFormFieldText extends JFormField
 
 		/* Get the field options for the datalist.
 		Note: getSuggestions() is deprecated and will be changed to getOptions() with 4.0. */
-		$options  = (array) $this->getOptions();
+		$options  = (array) $this->getOptions
+	();
 
 		$displayData = array(
 			'name' => $this->name, 
@@ -245,10 +246,10 @@ class JFormFieldText extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$options[] = JHtml::_(
-				'select.option', (string) $option['value'],
-				JText::alt(trim((string) $option), preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)), 'value', 'text'
-			);
+			$displayData = array(
+				'option' => $option,
+				'fieldname' => $fieldname);
+			$options[] = JLayoutHelper::render('libraries.joomla.form.fields.getinput', $displayData);
 		}
 
 		return $options;
