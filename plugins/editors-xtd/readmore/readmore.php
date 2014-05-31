@@ -43,7 +43,6 @@ class PlgButtonReadmore extends JPlugin
 			array(
 				'getContent' => $getContent,
 				'present' => $present
-
 			));
 
 		$button = new JObject;
