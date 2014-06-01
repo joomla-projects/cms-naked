@@ -161,12 +161,24 @@ class JFormFieldNumber extends JFormField
 		// Initialize JavaScript field attributes.
 		$onchange = !empty($this->onchange) ? ' onchange="' . $this->onchange . '"' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
+		$displayData = array(
+			'name' => $this->name,
+			'id' => $this->id,
+			'value' => $this->value,
+			'class' => $class,
+			'size' => $size,
+			'disabled' => $disabled,
+			'readonly' => $readonly,
+			'hint' => $hint,
+			'onchange' => $onchange,
+			'max' => $max,
+			'step' => $step,
+			'min' => $min,
+			'required' => $required,
+			'autocomplete' => $autocomplete,
+			'autofocus' => $autofocus
+		);
 
-		return '<input type="number" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'
-			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly
-			. $hint . $onchange . $max . $step . $min . $required . $autocomplete . $autofocus . ' />';
+		return JLayoutHelper::render('libraries.joomla.form.fields.number', $displayData);
 	}
 }

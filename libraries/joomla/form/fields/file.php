@@ -130,11 +130,19 @@ class JFormFieldFile extends JFormField
 		// Initialize JavaScript field attributes.
 		$onchange = $this->onchange ? ' onchange="' . $this->onchange . '"' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
+		$displayData = array(
+			'name' => $this->name,
+			'id' => $this->id,
+			'accept' => $accept,
+			'disabled' => $disabled,
+			'class' => $class,
+			'size' => $size,
+			'onchange' => $onchange,
+			'required' => $required,
+			'autofocus' => $autofocus,
+			'multiple' => $multiple,
+		);
 
-		return '<input type="file" name="' . $this->name . '" id="' . $this->id . '" value=""' . $accept
-			. $disabled . $class . $size . $onchange . $required . $autofocus . $multiple . ' />';
+		return JLayoutHelper::render('libraries.joomla.form.fields.file', $displayData);
 	}
 }

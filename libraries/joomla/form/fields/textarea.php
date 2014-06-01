@@ -146,12 +146,24 @@ class JFormFieldTextarea extends JFormField
 		$onchange = $this->onchange ? ' onchange="' . $this->onchange . '"' : '';
 		$onclick = $this->onclick ? ' onclick="' . $this->onclick . '"' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
+		$displayData = array(
+			'name' => $this->name,
+			'id' => $this->id,
+			'columns' => $columns,
+			'rows' => $rows,
+			'class' => $class,
+			'hint' => $hint,
+			'disabled' => $disabled,
+			'readonly' => $readonly,
+			'onchange' => $onchange,
+			'onclick' => $onclick,
+			'required' => $required,
+			'autocomplete' => $autocomplete,
+			'autofocus' => $autofocus,
+			'spellcheck' => $spellcheck,
+			'value' => $this->value
+		);
 
-		return '<textarea name="' . $this->name . '" id="' . $this->id . '"' . $columns . $rows . $class
-			. $hint . $disabled . $readonly . $onchange . $onclick . $required . $autocomplete . $autofocus . $spellcheck . ' >'
-			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '</textarea>';
+		return JLayoutHelper::render('libraries.joomla.form.fields.textarea', $displayData);
 	}
 }

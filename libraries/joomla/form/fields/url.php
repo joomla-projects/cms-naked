@@ -59,12 +59,23 @@ class JFormFieldUrl extends JFormFieldText
 		// Initialize JavaScript field attributes.
 		$onchange = !empty($this->onchange) ? ' onchange="' . $this->onchange . '"' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
+		$displayData = array(
+			'name' => $this->name,
+			'class' => $class,
+			'id' => $this->id,
+			'value' => $this->value,
+			'size' => $size,
+			'disabled' => $disabled,
+			'readonly' => $readonly,
+			'hint' => $hint,
+			'autocomplete' => $autocomplete,
+			'autofocus' => $autofocus
+			'spellcheck' => $spellcheck,
+			'onchange' => $onchange,
+			'maxlength' => $maxLength,
+			'required' => $required
+		);
 
-		return '<input type="url" name="' . $this->name . '"' . $class . ' id="' . $this->id . '" value="'
-			. htmlspecialchars(JStringPunycode::urlToUTF8($this->value), ENT_COMPAT, 'UTF-8') . '"' . $size . $disabled . $readonly
-			. $hint . $autocomplete . $autofocus . $spellcheck . $onchange . $maxLength . $required . ' />';
+		return JLayoutHelper::render('libraries.joomla.form.fields.url', $displayData);
 	}
 }

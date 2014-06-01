@@ -55,12 +55,20 @@ class JFormFieldRange extends JFormFieldNumber
 		// Initialize JavaScript field attributes.
 		$onchange = !empty($this->onchange) ? ' onchange="' . $this->onchange . '"' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
+		$displayData = array(
+			'name' => $this->name,
+			'id' => $this->id,
+			'value' => $value,
+			'class' => $class,
+			'disabled' => $disabled,
+			'readonly' => $readonly,
+			'onchange' => $onchange,
+			'max' => $max,
+			'step' => $step,
+			'min' => $min,
+			'autofocus' => $autofocus
+		);
 
-		return '<input type="range" name="' . $this->name . '" id="' . $this->id . '"' . ' value="'
-			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $disabled . $readonly
-			. $onchange . $max . $step . $min . $autofocus . ' />';
+		return JLayoutHelper::render('libraries.joomla.form.fields.range', $displayData);
 	}
 }

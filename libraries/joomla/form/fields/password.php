@@ -176,12 +176,21 @@ class JFormFieldPassword extends JFormField
 			);
 		}
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
+		$displayData = array(
+			'name' => $this->name,
+			'id' => $this->id,
+			'value' => $this->value,
+			'hint' => $hint,
+			'autocomplete' => $autocomplete,
+			'class' => $class,
+			'readonly' => $readonly,
+			'disabled' => $disabled,
+			'size' => $size,
+			'maxlength' => $maxLength,
+			'required' => $required
+			'autofocus' => $autofocus
+		);
 
-		return '<input type="password" name="' . $this->name . '" id="' . $this->id . '"' .
-			' value="' . htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete .
-			$class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . ' />';
+		return JLayoutHelper::render('libraries.joomla.form.fields.password', $displayData);
 	}
 }
