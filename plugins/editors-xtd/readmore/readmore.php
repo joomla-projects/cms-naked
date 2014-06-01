@@ -35,27 +35,15 @@ class PlgButtonReadmore extends JPlugin
 	 */
 	public function onDisplay($name)
 	{
-		$doc = JFactory::getDocument();
-
 		// Button is not active in specific content components
-
 		$getContent = $this->_subject->getContent($name);
 		$present = JText::_('PLG_READMORE_ALREADY_EXISTS', true);
-		$js = "
-			function insertReadmore(editor)
-			{
-				var content = $getContent
-				if (content.match(/<hr\s+id=(\"|')system-readmore(\"|')\s*\/*>/i))
-				{
-					alert('$present');
-					return false;
-				} else {
-					jInsertEditorText('<hr id=\"system-readmore\" />', editor);
-				}
-			}
-			";
 
-		$doc->addScriptDeclaration($js);
+		$this->getRenderer('default')->render(
+			array(
+				'getContent' => $getContent,
+				'present' => $present
+			));
 
 		$button = new JObject;
 		$button->modal = false;
