@@ -55,10 +55,11 @@
  * 				</tr>
  * 			</tbody>
  * 		</table>
- * 		<a href="#" class="close-modal">Close</a>
+ * 		<a href="#" class="close-modal">Cancel</a>
+ * 		<a href="#" class="save-modal-data">Save</a>
  * 	</div>
  * </div>
- * <button id="jform_somename_button" >Open modal</button>
+ * <button id="jform_somename_button">Open modal</button>
  * <input type="hidden" name="jform[somename]" id="jform_somename" value=""
  * 		class="form-field-repeatable"
  * 		data-container="#jform_somename_container"
@@ -68,7 +69,7 @@
  * 		data-bt-modal-open="#jform_somename_button"
  * 		data-bt-modal-close="a.close-modal"
  * 		data-maximum="3" data-input="#jform_somename"
- * 		/>
+ * 	/>
  *
  * data-repeatable-element="table tbody tr" - means that <tr> inside <tbody> will be repeatable
  */
@@ -496,6 +497,7 @@
 
     // defaults
     $.JRepeatable.defaults = {
+    	container: '#main-container', // main container
     	modalElement: "#modal-container", // id of the modal container
     	btModalOpen: "#open-modal", // id of the button for initiate the modal window
     	btModalClose: ".close-modal", // button for close the modal window, and rollback all changes
