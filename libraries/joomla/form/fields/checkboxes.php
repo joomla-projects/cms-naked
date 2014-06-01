@@ -132,10 +132,6 @@ class JFormFieldCheckboxes extends JFormField
 		$required       = $this->required ? ' required aria-required="true"' : '';
 		$autofocus      = $this->autofocus ? ' autofocus' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
-
 		// Start the checkbox field output.
 		$html[] = '<fieldset id="' . $this->id . '"' . $class . $required . $autofocus . '>';
 
@@ -180,7 +176,11 @@ class JFormFieldCheckboxes extends JFormField
 		// End the checkbox field output.
 		$html[] = '</fieldset>';
 
-		return implode($html);
+		$displayData = array(
+			'html' => $html
+		);
+
+		return JLayoutHelper::render('libraries.joomla.form.fields.checkboxes', $displayData);
 	}
 
 	/**
