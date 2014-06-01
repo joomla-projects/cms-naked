@@ -141,12 +141,29 @@ class JFormFieldTextarea extends JFormField
 		$autocomplete = $autocomplete == ' autocomplete="on"' ? '' : $autocomplete;
 		$autofocus    = $this->autofocus ? ' autofocus' : '';
 		$spellcheck   = $this->spellcheck ? '' : ' spellcheck="false"';
-		
+
 		// Initialize JavaScript field attributes.
 		$onchange = $this->onchange ? ' onchange="' . $this->onchange . '"' : '';
 		$onclick = $this->onclick ? ' onclick="' . $this->onclick . '"' : '';
 
-		$displayData = array($this->name, $this->id, $this->value, $columns, $rows, $class, $readonly, $disabled, $required, $hint, $autocomplete, $autofocus, $spellcheck, $onchange, $onclick);
+		$displayData = array(
+			'name'         => $this->name,
+			'id'           => $this->id,
+			'value'        => $this->value,
+			'columns'      => $columns,
+			'rows'         => $rows,
+			'class'        => $class,
+			'readonly'     => $readonly,
+			'disabled'     => $disabled,
+			'required'     => $required,
+			'hint'         => $hint,
+			'autocomplete' => $autocomplete,
+			'autofocus'    => $autofocus,
+			'spellcheck'   => $spellcheck,
+			'onchange'     => $onchange,
+			'onclick'      => $onclick
+		);
+
 		return JLayoutHelper::render('libraries.joomla.form.fields.textarea', $displayData);
 	}
 }
