@@ -60,12 +60,26 @@ class JFormFieldEMail extends JFormFieldText
 		// Initialize JavaScript field attributes.
 		$onchange = $this->onchange ? ' onchange="' . $this->onchange . '"' : '';
 
-		// Including fallback code for HTML5 non supported browsers.
-		JHtml::_('jquery.framework');
-		JHtml::_('script', 'system/html5fallback.js', false, true);
 
-		return '<input type="email" name="' . $this->name . '"' . $class . ' id="' . $this->id . '" value="'
-			. htmlspecialchars(JStringPunycode::emailToUTF8($this->value), ENT_COMPAT, 'UTF-8') . '"' . $spellcheck . $size . $disabled . $readonly
-			. $onchange . $autocomplete . $multiple . $maxLength . $hint . $required . $autofocus . ' />';
+$displayData = array(
+				'name' => $this->name,
+				'class' => $class,
+				'id' => $this->id,
+				'value' => $this->value,
+				'size' => $size,
+				'disabled' => $disabled,
+				'readonly' => $readonly,
+				'hint' => $hint,
+				'autocomplete' => $autocomplete,
+				'autofocus' => $autofocus,
+				'spellcheck' => $spellcheck,
+				'onchange' => $onchange,
+				'maxLength' => $maxLength,
+				'multiple' => $multiple,
+				'required' => $required
+				);
+			return JLayoutHelper::render('libraries.joomla.form.fields.email', $displayData);
+			
+		
 	}
 }
