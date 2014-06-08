@@ -77,7 +77,5 @@ class JFormFieldTel extends JFormFieldText
 				'maxLength' => $maxLength,
 				'required' => $required);
 			return = JLayoutHelper::render('libraries.joomla.form.fields.tel', $displayData);
-
-
 	}
 }
