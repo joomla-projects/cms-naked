@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Renderer\RendererInterface;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -41,6 +43,14 @@ abstract class JPlugin extends JEvent
 	 * @since  1.5
 	 */
 	protected $_type = null;
+
+	/**
+	 * The renderer object
+	 *
+	 * @var    RendererInterface
+	 * @since  3.4
+	 */
+	protected $renderer = null;
 
 	/**
 	 * Affects constructor behavior. If true, language files will be loaded automatically.
@@ -86,6 +96,27 @@ abstract class JPlugin extends JEvent
 		if (isset($config['type']))
 		{
 			$this->_type = $config['type'];
+		}
+
+		// Get the renderer
+		if (isset($config['renderer']) && $config['renderer'] instanceof RendererInterface)
+		{
+			$this->setRenderer($config['renderer']);
+		}
+		else
+		{
+			if (!isset($options['paths']))
+			{
+				$template = JFactory::getApplication()->getTemplate();
+
+				$options['paths'] = array(
+					JPATH_THEMES . "/" . $template . '/html/layouts/plugins/' . $this->_type . '/' . $this->_name,
+					JPATH_SITE . '/layouts/plugins/' . $this->_type . '/' . $this->_name
+				);
+			}
+		
+			$renderer = new JRendererJlayout($options);
+			$this->setRenderer($renderer);
 		}
 
 		// Load the language files if needed.
@@ -143,26 +174,30 @@ abstract class JPlugin extends JEvent
 	}
 
 	/**
-	 * Get the renderer
+	 * Retrieves the renderer object
 	 *
-	 * @param   array   $options  Optional array with layout options
+	 * @return  RendererInterface
 	 *
-	 * @return  JRendererJlayout  Renderer instance
+	 * @since   3.4
 	 */
-	protected function getRenderer($options = array())
+	protected function getRenderer()
 	{
-		if (!isset($options['paths']))
-		{
-			$template = JFactory::getApplication()->getTemplate();
+		return $this->renderer;
+	}
 
-			$options['paths'] = array(
-				JPATH_THEMES . "/" . $template . '/html/layouts/plugins/' . $this->_type . '/' . $this->_name,
-				JPATH_SITE . '/layouts/plugins/' . $this->_type . '/' . $this->_name
-			);
-		}
-		
-		$renderer = new JRendererJlayout($options);
+	/**
+	 * Sets the renderer object
+	 *
+	 * @param   RendererInterface  $renderer  The renderer object.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   3.4
+	 */
+	protected function setRenderer(RendererInterface $renderer)
+	{
+		$this->renderer = $renderer;
 
-		return $renderer;
+		return $this;
 	}
 }

@@ -22,7 +22,7 @@ class JRendererJlayout implements RendererInterface
 	 * @var    array
 	 * @since  3.4
 	 */
-	private $config = array();
+	protected $config = array();
 
 	/**
 	 * Public constructor
