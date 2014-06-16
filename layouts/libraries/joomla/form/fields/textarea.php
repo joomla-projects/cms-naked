@@ -18,3 +18,4 @@ extract($displayData);
 		echo '<textarea name="' . $name . '" id="' . $id . '"' . $columns . $rows . $class
 			. $hint . $disabled . $readonly . $onchange . $onclick . $required . $autocomplete . $autofocus . $spellcheck . ' >'
 			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '</textarea>';
+

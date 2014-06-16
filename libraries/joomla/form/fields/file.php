@@ -144,5 +144,6 @@ class JFormFieldFile extends JFormField
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.file', $displayData);
+
 	}
 }

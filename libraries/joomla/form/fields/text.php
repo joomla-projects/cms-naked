@@ -220,6 +220,7 @@ class JFormFieldText extends JFormField
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.text', $displayData);
+
 	}
 
 	/**

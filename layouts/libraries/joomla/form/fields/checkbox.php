@@ -18,3 +18,4 @@ extract($displayData);
 		echo '<input type="checkbox" name="' . $name . '" id="' . $id . '" value="'
 			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $checked . $disabled . $onclick . $onchange
 			. $required . $autofocus . ' />';
+

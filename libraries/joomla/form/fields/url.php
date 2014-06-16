@@ -69,7 +69,7 @@ class JFormFieldUrl extends JFormFieldText
 			'readonly' => $readonly,
 			'hint' => $hint,
 			'autocomplete' => $autocomplete,
-			'autofocus' => $autofocus
+			'autofocus' => $autofocus,
 			'spellcheck' => $spellcheck,
 			'onchange' => $onchange,
 			'maxlength' => $maxLength,
@@ -77,5 +77,6 @@ class JFormFieldUrl extends JFormFieldText
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.url', $displayData);
+
 	}
 }

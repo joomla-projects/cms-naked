@@ -18,4 +18,3 @@ extract($displayData);
 		echo '<input type="file" name="' . $name . '" id="' . $id . '" value=""' . $accept
 			. $disabled . $class . $size . $onchange . $required . $autofocus . $multiple . ' />';
 
-

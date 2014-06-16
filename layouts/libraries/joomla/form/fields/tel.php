@@ -18,3 +18,4 @@ extract($displayData);
 		echo '<input type="tel" name="' . $name . '"' . $class . ' id="' . $id . '" value="'
 			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $size . $disabled . $readonly
 			. $hint . $autocomplete . $autofocus . $spellcheck . $onchange . $maxlength . $required . ' />';
+

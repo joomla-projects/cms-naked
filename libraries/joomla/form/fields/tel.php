@@ -70,7 +70,7 @@ class JFormFieldTel extends JFormFieldText
 			'readonly' => $readonly,
 			'hint' => $hint,
 			'autocomplete' => $autocomplete,
-			'autofocus' => $autofocus
+			'autofocus' => $autofocus,
 			'spellcheck' => $spellcheck,
 			'onchange' => $onchange,
 			'maxlength' => $maxLength,
@@ -78,5 +78,6 @@ class JFormFieldTel extends JFormFieldText
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.tel', $displayData);
+
 	}
 }

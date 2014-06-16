@@ -147,5 +147,6 @@ class JFormFieldCheckbox extends JFormField
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.checkbox', $displayData);
+
 	}
 }

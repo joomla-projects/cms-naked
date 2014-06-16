@@ -18,5 +18,3 @@ extract($displayData);
 		echo '<input type="number" name="' . $name . '" id="' . $id . '"' . ' value="'
 			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly
 			. $hint . $onchange . $max . $step . $min . $required . $autocomplete . $autofocus . ' />';
-
-

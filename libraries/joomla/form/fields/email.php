@@ -79,5 +79,6 @@ class JFormFieldEMail extends JFormFieldText
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.email', $displayData);
+
 	}
 }

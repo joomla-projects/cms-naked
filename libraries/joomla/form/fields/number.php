@@ -180,5 +180,6 @@ class JFormFieldNumber extends JFormField
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.number', $displayData);
+
 	}
 }

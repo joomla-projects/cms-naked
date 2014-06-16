@@ -16,3 +16,4 @@ extract($displayData);
 		JHtml::_('script', 'system/html5fallback.js', false, true);
 
 		echo implode($html);
+

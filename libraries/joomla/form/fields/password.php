@@ -192,5 +192,6 @@ class JFormFieldPassword extends JFormField
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.password', $displayData);
+
 	}
 }

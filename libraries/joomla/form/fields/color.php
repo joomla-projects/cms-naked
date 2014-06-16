@@ -267,6 +267,7 @@ class JFormFieldColor extends JFormField
 			);
 
 			return JLayoutHelper::render('libraries.joomla.form.fields.color', $displayData);
+
 		}
 	}
 }

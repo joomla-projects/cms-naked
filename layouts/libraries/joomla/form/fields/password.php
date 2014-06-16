@@ -16,5 +16,6 @@ extract($displayData);
 		JHtml::_('script', 'system/html5fallback.js', false, true);
 
 		echo '<input type="password" name="' . $name . '" id="' . $id . '"' .
-			' value="' . htmlspecialchars($tvalue, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete .
-			$class . $readonly . $disabled . $size . $maxLength . $required . $autofocus . ' />';
+			' value="' . htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $hint . $autocomplete .
+			$class . $readonly . $disabled . $size . $maxlength . $required . $autofocus . ' />';
+

@@ -18,3 +18,4 @@ extract($displayData);
 		echo '<input type="url" name="' . $name . '"' . $class . ' id="' . $id . '" value="'
 			. htmlspecialchars(JStringPunycode::urlToUTF8($value), ENT_COMPAT, 'UTF-8') . '"' . $size . $disabled . $readonly
 			. $hint . $autocomplete . $autofocus . $spellcheck . $onchange . $maxlength . $required . ' />';
+

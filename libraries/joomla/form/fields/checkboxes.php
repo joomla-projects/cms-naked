@@ -226,5 +226,6 @@ class JFormFieldCheckboxes extends JFormField
 		reset($options);
 
 		return $options;
+
 	}
 }

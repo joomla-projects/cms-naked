@@ -165,5 +165,6 @@ class JFormFieldTextarea extends JFormField
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.textarea', $displayData);
+
 	}
 }

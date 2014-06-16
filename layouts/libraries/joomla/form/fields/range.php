@@ -18,3 +18,4 @@ extract($displayData);
 		echo '<input type="range" name="' . $name . '" id="' . $id . '"' . ' value="'
 			. htmlspecialchars($value, ENT_COMPAT, 'UTF-8') . '"' . $class . $disabled . $readonly
 			. $onchange . $max . $step . $min . $autofocus . ' />';
+

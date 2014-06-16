@@ -70,5 +70,6 @@ class JFormFieldRange extends JFormFieldNumber
 		);
 
 		return JLayoutHelper::render('libraries.joomla.form.fields.range', $displayData);
+
 	}
 }

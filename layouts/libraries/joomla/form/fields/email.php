@@ -16,7 +16,5 @@ extract($displayData);
 		JHtml::_('script', 'system/html5fallback.js', false, true);
 
 		echo '<input type="email" name="' . $name . '"' . $class . ' id="' . $id . '" value="'
-			. htmlspecialchars(JStringPunycode::emailToUTF8($value), ENT_COMPAT, 'UTF-8') . '"' . $spellcheck . $size . $disabled . $readonly
-			. $onchange . $autocomplete . $multiple . $maxlength . $hint . $required . $autofocus . ' />';
-
+			. htmlspecialchars(JStringPunycode::emailToUTF8($value), ENT_COMPAT, 'UTF-8') . '"' . $spellcheck . $size . $disabled . $readonly . $onchange . $autocomplete . $multiple . $maxlength . $hint . $required . $autofocus . ' />';
 ?>

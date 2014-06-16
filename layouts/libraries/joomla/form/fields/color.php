@@ -20,3 +20,4 @@ extract($displayData);
 			echo '<input type="text" name="' . $name . '" id="' . $id . '"' . ' value="'
 				. htmlspecialchars($color, ENT_COMPAT, 'UTF-8') . '"' . $hint . $class . $position . $control
 				. $readonly . $disabled . $required . $onchange . $autocomplete . $autofocus . '/>';
+
