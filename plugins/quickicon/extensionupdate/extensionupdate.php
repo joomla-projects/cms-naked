@@ -44,11 +44,12 @@ class PlgQuickiconExtensionupdate extends JPlugin
 			return;
 		}
 
-		$this->getRenderer('default')->render(
-			array(
-				'ajaxUrl' => JUri::base() . 'index.php?option=com_installer&view=update&task=update.ajax'
-			)
-		);
+        $layout = new JLayoutFile('plugins.quickicon.extensionupdate.default');
+        $layout->render(
+            array(
+                'ajaxUrl' => JUri::base() . 'index.php?option=com_installer&view=update&task=update.ajax'
+            )
+        );
 
 		return array(
 			array(
