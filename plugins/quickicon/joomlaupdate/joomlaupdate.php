@@ -45,7 +45,8 @@ class PlgQuickiconJoomlaupdate extends JPlugin
 			return;
 		}
 
-		$this->getRenderer('default')->render(
+        $layout = new JLayoutFile('plugins.quickicon.joomlaupdate.default');
+		$layout->render(
 			array(
 				'context' => $context
 			)
