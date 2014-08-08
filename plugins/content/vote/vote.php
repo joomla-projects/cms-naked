@@ -47,22 +47,61 @@ class PlgContentVote extends JPlugin
 			return false;
 		}
 
+		$html = '';
+
 		if (!empty($params) && $params->get('show_vote', null))
 		{
+			$rating = (int) @$row->rating;
+
 			$view = JFactory::getApplication()->input->getString('view', '');
+			$img = '';
 
-			$params->set('showVoteForm', ($view == 'article' && $row->state == 1));
+			// Look for images in template if available
+			$starImageOn = JHtml::_('image', 'system/rating_star.png', JText::_('PLG_VOTE_STAR_ACTIVE'), null, true);
+			$starImageOff = JHtml::_('image', 'system/rating_star_blank.png', JText::_('PLG_VOTE_STAR_INACTIVE'), null, true);
 
-			return $this->getRenderer('default')->render(
-				array(
-					'context' => $context,
-					'row'     => $row,
-					'params'  => $params,
-					'page'    => $page
-				)
-			);
+			for ($i = 0; $i < $rating; $i++)
+			{
+				$img .= $starImageOn;
+			}
+
+			for ($i = $rating; $i < 5; $i++)
+			{
+				$img .= $starImageOff;
+			}
+
+			// Get the path for the rating layout file
+			$path = JPluginHelper::getLayoutPath('content', 'vote');
+
+			// Render the rating
+			ob_start();
+			include $path;
+			$html .= ob_get_clean();
+
+			if ($view == 'article' && $row->state == 1)
+			{
+				$uri = JUri::getInstance();
+				$uri->setQuery($uri->getQuery() . '&hitcount=0');
+
+				// Create option list for voting select box
+				$options = array();
+
+				for ($i = 1; $i < 6; $i++)
+				{
+					$options[] = JHtml::_('select.option', $i, JText::sprintf('PLG_VOTE_VOTE', $i));
+				}
+
+				// Get the path for the rating layout file
+				$path = JPluginHelper::getLayoutPath('content', 'vote', 'form');
+
+				// Render the rating
+				ob_start();
+				include $path;
+				$html .= ob_get_clean();
+
+			}
 		}
 
-		return null;
+		return $html;
 	}
 }
