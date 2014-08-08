@@ -253,8 +253,31 @@ class PlgContentPagebreak extends JPlugin
 	 */
 	protected function _createTOC(&$row, &$matches, &$page)
 	{
-		$displayData = array($row,$matches,$page,$this->params);
-		echo JLayoutHelper::render('plugins.content.pagebreak.toc', $displayData);
+        $params = $this->params;
+
+        $heading = isset($row->title) ? $row->title : JText::_('PLG_CONTENT_PAGEBREAK_NO_TITLE');
+        $input = JFactory::getApplication()->input;
+        $limitstart = $input->getUInt('limitstart', 0);
+        $showall = $input->getInt('showall', 0);
+
+        $headingtext = JText::_('PLG_CONTENT_PAGEBREAK_ARTICLE_INDEX');
+
+        if ($params->get('article_index_text'))
+        {
+            htmlspecialchars($headingtext = $params->get('article_index_text'));
+        }
+
+        $html = '';
+
+        // Get the path for the toc layout file
+        $path = JPluginHelper::getLayoutPath('content', 'pagebreak', 'toc');
+
+        // Render the toc
+        ob_start();
+        include $path;
+        $html .= ob_get_clean();
+
+		$row->toc = $html;
 	}
 
 	/**
@@ -270,7 +293,38 @@ class PlgContentPagebreak extends JPlugin
 	 */
 	protected function _createNavigation(&$row, $page, $n)
 	{
-		$displayData = array($row,$page,$n);
-		echo JLayoutHelper::render('plugins.content.pagebreak.navigation', $displayData);
+        $pnSpace = '';
+
+        if (JText::_('JGLOBAL_LT') || JText::_('JGLOBAL_LT'))
+        {
+            $pnSpace = ' ';
+        }
+
+        if ($page < $n - 1)
+        {
+            $page_next = $page + 1;
+
+            $link_next = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catid) . '&showall=&limitstart=' . ($page_next));
+        }
+
+        if ($page > 0)
+        {
+            $page_prev = $page - 1 == 0 ? '' : $page - 1;
+
+            $link_prev = JRoute::_(ContentHelperRoute::getArticleRoute($row->slug, $row->catid) . '&showall=&limitstart=' . ($page_prev));
+        }
+
+        $html = '';
+
+        // Get the path for the page navigation layout file
+        $path = JPluginHelper::getLayoutPath('content', 'pagebreak', 'navigation');
+
+        // Render the page navigation
+        ob_start();
+        include $path;
+        $html .= ob_get_clean();
+
+        $row->text .= $html;
+
 	}
 }
