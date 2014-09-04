@@ -48,7 +48,7 @@ abstract class JPlugin extends JEvent
 	 * The renderer object
 	 *
 	 * @var    RendererInterface
-	 * @since  3.4
+	 * @since  3.5
 	 */
 	protected $renderer = null;
 
@@ -102,21 +102,6 @@ abstract class JPlugin extends JEvent
 		if (isset($config['renderer']) && $config['renderer'] instanceof RendererInterface)
 		{
 			$this->setRenderer($config['renderer']);
-		}
-		else
-		{
-			if (!isset($options['paths']))
-			{
-				$template = JFactory::getApplication()->getTemplate();
-
-				$options['paths'] = array(
-					JPATH_THEMES . "/" . $template . '/html/layouts/plugins/' . $this->_type . '/' . $this->_name,
-					JPATH_SITE . '/layouts/plugins/' . $this->_type . '/' . $this->_name
-				);
-			}
-		
-			$renderer = new JRendererJlayout($options);
-			$this->setRenderer($renderer);
 		}
 
 		// Load the language files if needed.
@@ -174,14 +159,52 @@ abstract class JPlugin extends JEvent
 	}
 
 	/**
+	 * Get the default renderer
+	 *
+	 * @return  JRendererJlayout
+	 *
+	 * @since   3.5
+	 */
+	protected function getDefaultRenderer()
+	{
+		$template = JFactory::getApplication()->getTemplate();
+
+		$options = array(
+			'paths' => array(
+				JPATH_THEMES . "/" . $template . '/html/layouts/plugins/' . $this->_type . '/' . $this->_name,
+				JPATH_SITE . '/layouts/plugins/' . $this->_type . '/' . $this->_name
+			)
+		);
+
+		return new JRendererJlayout($options);
+	}
+
+	/**
+	 * Get the data that layout requires
+	 *
+	 * @return  array
+	 */
+	protected function getLayoutData()
+	{
+		return array(
+			'pluginParams' => $this->params
+		);
+	}
+
+	/**
 	 * Retrieves the renderer object
 	 *
 	 * @return  RendererInterface
 	 *
-	 * @since   3.4
+	 * @since   3.5
 	 */
 	protected function getRenderer()
 	{
+		if (empty($this->renderer))
+		{
+			$this->renderer = $this->getDefaultRenderer();
+		}
+
 		return $this->renderer;
 	}
 
