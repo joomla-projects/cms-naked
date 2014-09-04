@@ -183,6 +183,8 @@ abstract class JPlugin extends JEvent
 	 * Get the data that layout requires
 	 *
 	 * @return  array
+	 * 
+	 * @since   3.5
 	 */
 	protected function getLayoutData()
 	{
@@ -215,7 +217,7 @@ abstract class JPlugin extends JEvent
 	 *
 	 * @return  $this  Method allows chaining
 	 *
-	 * @since   3.4
+	 * @since   3.5
 	 */
 	protected function setRenderer(RendererInterface $renderer)
 	{
