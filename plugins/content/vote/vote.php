@@ -53,8 +53,8 @@ class PlgContentVote extends JPlugin
 
 			$params->set('showVoteForm', ($view == 'article' && $row->state == 1));
 
-			return $this->getRenderer()->render(
-				'default',
+			$layoutData = array_merge(
+				parent::getLayoutData(),
 				array(
 					'context' => $context,
 					'row'     => $row,
@@ -62,6 +62,8 @@ class PlgContentVote extends JPlugin
 					'page'    => $page
 				)
 			);
+
+			return $this->getRenderer()->render('default', $layoutData);
 		}
 
 		return null;
