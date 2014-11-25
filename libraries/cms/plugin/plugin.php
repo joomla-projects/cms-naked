@@ -7,6 +7,8 @@
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
+use Joomla\Renderer\RendererInterface;
+
 defined('JPATH_PLATFORM') or die;
 
 /**
@@ -41,6 +43,14 @@ abstract class JPlugin extends JEvent
 	 * @since  1.5
 	 */
 	protected $_type = null;
+
+	/**
+	 * The renderer object
+	 *
+	 * @var    RendererInterface
+	 * @since  3.5
+	 */
+	protected $renderer = null;
 
 	/**
 	 * Affects constructor behavior. If true, language files will be loaded automatically.
@@ -86,6 +96,12 @@ abstract class JPlugin extends JEvent
 		if (isset($config['type']))
 		{
 			$this->_type = $config['type'];
+		}
+
+		// Get the renderer
+		if (isset($config['renderer']) && $config['renderer'] instanceof RendererInterface)
+		{
+			$this->setRenderer($config['renderer']);
 		}
 
 		// Load the language files if needed.
@@ -143,25 +159,70 @@ abstract class JPlugin extends JEvent
 	}
 
 	/**
-	 * Get the renderer
+	 * Get the default renderer
 	 *
-	 * @param   string  $layout   Layout to load.
-	 * @param   array   $options  Optional array with layout options
+	 * @return  JRendererJlayout
 	 *
-	 * @return  JLayoutFile       Renderer instance
+	 * @since   3.5
 	 */
-	protected function getRenderer($layout, $options = array())
+	protected function getDefaultRenderer()
 	{
 		$template = JFactory::getApplication()->getTemplate();
-		$renderer = new JLayoutFile($layout, null, $options);
 
-		$renderer->setIncludePaths(
-			array(
+		$options = array(
+			'paths' => array(
 				JPATH_THEMES . "/" . $template . '/html/layouts/plugins/' . $this->_type . '/' . $this->_name,
 				JPATH_SITE . '/layouts/plugins/' . $this->_type . '/' . $this->_name
 			)
 		);
 
-		return $renderer;
+		return new JRendererJlayout($options);
+	}
+
+	/**
+	 * Get the data that layout requires
+	 *
+	 * @return  array
+	 * 
+	 * @since   3.5
+	 */
+	protected function getLayoutData()
+	{
+		return array(
+			'pluginParams' => $this->params
+		);
+	}
+
+	/**
+	 * Retrieves the renderer object
+	 *
+	 * @return  RendererInterface
+	 *
+	 * @since   3.5
+	 */
+	protected function getRenderer()
+	{
+		if (empty($this->renderer))
+		{
+			$this->renderer = $this->getDefaultRenderer();
+		}
+
+		return $this->renderer;
+	}
+
+	/**
+	 * Sets the renderer object
+	 *
+	 * @param   RendererInterface  $renderer  The renderer object.
+	 *
+	 * @return  $this  Method allows chaining
+	 *
+	 * @since   3.5
+	 */
+	protected function setRenderer(RendererInterface $renderer)
+	{
+		$this->renderer = $renderer;
+
+		return $this;
 	}
 }
