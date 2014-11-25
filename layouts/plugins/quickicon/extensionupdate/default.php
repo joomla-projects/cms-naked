@@ -12,18 +12,24 @@ defined('JPATH_BASE') or die;
 extract($displayData);
 
 /**
- * Variables
+ * Layout variables
  * ---------------------
- * 	$ajax_url        : (string) The url of the ajax call to be executed
+ * @var   string     $context       The calling context
+ * @var   JRegistry  $pluginParams  Plugin paramters
  */
 
 JHtml::_('jquery.framework');
 
-$script = "var plg_quickicon_extensionupdate_ajax_url = '$ajaxUrl';\n";
-$script .= 'var plg_quickicon_extensionupdate_text = {"UPTODATE" : "'
-	. JText::_('PLG_QUICKICON_EXTENSIONUPDATE_UPTODATE', true) . '", "UPDATEFOUND": "'
-	. JText::_('PLG_QUICKICON_EXTENSIONUPDATE_UPDATEFOUND', true) . '", "ERROR": "'
-	. JText::_('PLG_QUICKICON_EXTENSIONUPDATE_ERROR', true) . "\"};\n";
+$ajaxUrl = JUri::base() . 'index.php?option=com_installer&view=update&task=update.ajax';
+
 $document = JFactory::getDocument();
-$document->addScriptDeclaration($script);
+$document->addScriptDeclaration("
+	var plg_quickicon_extensionupdate_ajax_url = '" . $ajaxUrl . "';
+	var plg_quickicon_extensionupdate_text = {
+		'UPTODATE'   :'" . JText::_('PLG_QUICKICON_EXTENSIONUPDATE_UPTODATE', true) . "',
+		'UPDATEFOUND':'" . JText::_('PLG_QUICKICON_EXTENSIONUPDATE_UPDATEFOUND', true) . "',
+		'ERROR'      :'" . JText::_('PLG_QUICKICON_EXTENSIONUPDATE_ERROR', true) . "'
+	};
+");
+
 JHtml::_('script', 'plg_quickicon_extensionupdate/extensionupdatecheck.js', false, true);

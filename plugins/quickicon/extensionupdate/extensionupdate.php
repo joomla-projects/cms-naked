@@ -44,20 +44,22 @@ class PlgQuickiconExtensionupdate extends JPlugin
 			return;
 		}
 
-		$this->getRenderer()->render(
-			'default',
+		$layoutData = array_merge(
+			$this->getLayoutData(),
 			array(
-				'ajaxUrl' => JUri::base() . 'index.php?option=com_installer&view=update&task=update.ajax'
+				'context' => $context
 			)
 		);
 
+		$this->getRenderer()->render('default', $layoutData);
+
 		return array(
 			array(
-				'link' => 'index.php?option=com_installer&view=update',
+				'link'  => 'index.php?option=com_installer&view=update',
 				'image' => 'asterisk',
-				'icon' => 'header/icon-48-extension.png',
-				'text' => JText::_('PLG_QUICKICON_EXTENSIONUPDATE_CHECKING'),
-				'id' => 'plg_quickicon_extensionupdate',
+				'icon'  => 'header/icon-48-extension.png',
+				'text'  => JText::_('PLG_QUICKICON_EXTENSIONUPDATE_CHECKING'),
+				'id'    => 'plg_quickicon_extensionupdate',
 				'group' => 'MOD_QUICKICON_MAINTENANCE'
 			)
 		);
