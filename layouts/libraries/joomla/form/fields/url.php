@@ -10,22 +10,7 @@
 defined('_JEXEC') or die;
 
 
-//		
-$name = 		$displayData[0];
-$id = 			$displayData[1];
-$value = 		$displayData[2];
-$size = 		$displayData[3];
-$maxlength = 	$displayData[4];
-$class = 		$displayData[5];
-$readonly =		$displayData[6];
-$disabled = 	$displayData[7];
-$required = 	$displayData[8];
-$hint = 		$displayData[9];
-$autocomplete = $displayData[10];
-$autofocus = 	$displayData[11];
-$spellcheck = 	$displayData[12];
-$onchange = 	$displayData[13];
-
+extract($displayData);
 
 // Including fallback code for HTML5 non supported browsers.
 		JHtml::_('jquery.framework');
