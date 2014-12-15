@@ -186,6 +186,9 @@ class JFormFieldText extends JFormField
 		// Initialize JavaScript field attributes.
 		$onchange = !empty($this->onchange) ? ' onchange="' . $this->onchange . '"' : '';
 
+
+
+
 		// Including fallback code for HTML5 non supported browsers.
 		JHtml::_('jquery.framework');
 		JHtml::_('script', 'system/html5fallback.js', false, true);
@@ -195,32 +198,32 @@ class JFormFieldText extends JFormField
 
 		/* Get the field options for the datalist.
 		Note: getSuggestions() is deprecated and will be changed to getOptions() with 4.0. */
-		$options  = (array) $this->getSuggestions();
+		$options  = (array) $this->getOptions
+	();
 
-		if ($options)
-		{
-			$datalist = '<datalist id="' . $this->id . '_datalist">';
+		$displayData = array(
+			'name' => $this->name, 
+			'id' => $this->id, 
+			'value' => $this->value,
+			'options' =>$options, 
+			'dirname' => $dirname, 
+			'class' => $class, 
+			'size' => $size, 
+			'disabled' => $disabled, 
+			'readonly' => $readonly, 
+			'list' => $list, 
+			'hint' => $hint, 
+			'onchange' => $onchange, 
+			'maxLength' => $maxLength, 
+			'required' => $required, 
+			'autocomplete' => $autocomplete, 
+			'autofocus' => $autofocus, 
+			'spellcheck' => $spellcheck, 
+			'inputmode' => $inputmode, 
+			'pattern' => $pattern);
+		return JLayoutHelper::render('libraries.joomla.form.fields.getinput', $displayData);
 
-			foreach ($options as $option)
-			{
-				if (!$option->value)
-				{
-					continue;
-				}
 
-				$datalist .= '<option value="' . $option->value . '">' . $option->text . '</option>';
-			}
-
-			$datalist .= '</datalist>';
-			$list     = ' list="' . $this->id . '_datalist"';
-		}
-
-		$html[] = '<input type="text" name="' . $this->name . '" id="' . $this->id . '"' . $dirname . ' value="'
-			. htmlspecialchars($this->value, ENT_COMPAT, 'UTF-8') . '"' . $class . $size . $disabled . $readonly . $list
-			. $hint . $onchange . $maxLength . $required . $autocomplete . $autofocus . $spellcheck . $inputmode . $pattern . ' />';
-		$html[] = $datalist;
-
-		return implode($html);
 	}
 
 	/**
@@ -243,10 +246,10 @@ class JFormFieldText extends JFormField
 			}
 
 			// Create a new option object based on the <option /> element.
-			$options[] = JHtml::_(
-				'select.option', (string) $option['value'],
-				JText::alt(trim((string) $option), preg_replace('/[^a-zA-Z0-9_\-]/', '_', $this->fieldname)), 'value', 'text'
-			);
+			$displayData = array(
+				'option' => $option,
+				'fieldname' => $fieldname);
+			$options[] = JLayoutHelper::render('libraries.joomla.form.fields.getoptions', $displayData);
 		}
 
 		return $options;
