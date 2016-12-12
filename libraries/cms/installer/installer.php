@@ -1425,13 +1425,45 @@ class JInstaller extends JAdapter
 	 * action.
 	 *
 	 * @param   SimpleXMLElement  $element  The XML node to process
-	 * @param   integer           $cid      Application ID of application to install to
 	 *
 	 * @return  boolean     True on success
 	 *
-	 * @since   3.1
+	 * @since   3.3
 	 */
-	public function parseMedia(SimpleXMLElement $element, $cid = 0)
+	public function parseMedia(SimpleXMLElement $element)
+	{
+		$media = 'media';
+		$this->_copyFilesFolder($element, $media);
+	}
+
+	/**
+	 * Method to parse through a layouts element of the installation manifest and take appropriate
+	 * action.
+	 *
+	 * @param   SimpleXMLElement  $element  The XML node to process
+	 *
+	 * @return  boolean     True on success
+	 *
+	 * @since   3.3
+	 */
+	public function parseLayouts(SimpleXMLElement $element)
+	{
+		$media = 'layouts';
+		$this->_copyFilesFolder($element, $media);
+	}
+
+	/**
+	 * Method to parse through an element of the installation manifest and take appropriate
+	 * action.
+	 *
+	 * @param   SimpleXMLElement  $element  The XML node to process
+	 * @param   string            $media    Folder to copy the files E.g. media or layouts
+	 *
+	 * @return  boolean     True on success
+	 *
+	 * @since   3.3
+	 */
+	private function _copyFilesFolder(SimpleXMLElement $element, $media)
 	{
 		if (!$element || !count($element->children()))
 		{
@@ -1445,7 +1477,7 @@ class JInstaller extends JAdapter
 		// Default 'media' Files are copied to the JPATH_BASE/media folder
 
 		$folder = ((string) $element->attributes()->destination) ? '/' . $element->attributes()->destination : null;
-		$destination = JPath::clean(JPATH_ROOT . '/media' . $folder);
+		$destination = JPath::clean(JPATH_ROOT . '/' . $media . $folder);
 
 		// Here we set the folder we are going to copy the files from.
 
@@ -1749,6 +1781,20 @@ class JInstaller extends JAdapter
 						$source = '';
 					}
 				}
+
+				break;
+
+			case 'layouts':
+				if ((string) $element->attributes()->destination)
+				{
+					$folder = (string) $element->attributes()->destination;
+				}
+				else
+				{
+					$folder = '';
+				}
+
+				$source = $client->path . '/layouts/' . $folder;
 
 				break;
 
